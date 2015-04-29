@@ -1,4 +1,20 @@
 <div class="" data-ng-controller="WilsonpictureUploadController">
+    <h3>Ajouter une ou plusieurs photos</h3>
+    <mean-upload file-dest="'/packages/files/'"
+                 upload-callback="uploadFinished(files)"
+                 upload-file-callback="uploadFileCallback(file)">
+    </mean-upload>
 
-    KIkouuu
+    <br/><br/>
+    <input type="button" data-ng-if="images.length > 0" value="Valider" data-ng-click="submitFiles()">
+
+    <br/><br/>
+
+    <h4>Fichiers en attentes de validations</h4>
+    <ul>
+        <div data-ng-repeat="img in images">
+
+            <li><img data-ng-src="{{img.src}}" class="img-rounded" style="max-width: 140px;max-height: 140px"></li>
+        </div>
+    </ul>
 </div>
