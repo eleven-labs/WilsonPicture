@@ -1,8 +1,6 @@
 'use strict';
 
 
-
-
 /* jshint -W098 */
 angular.module('mean.wilsonpicture').controller('WilsonpictureController', ['$scope', 'Global', 'Wilsonpicture',
     function ($scope, Global, Wilsonpicture) {
@@ -10,16 +8,21 @@ angular.module('mean.wilsonpicture').controller('WilsonpictureController', ['$sc
         $scope.package = {
             name: 'wilsonpicture'
         };
+
     }
 ]);
 
-angular.module('mean.wilsonpicture').controller('WilsonpictureUploadController', ['$scope', 'Global', 'Wilsonpicture', 'Pictures',
-    function ($scope, Global, Wilsonpicture, Pictures) {
+angular.module('mean.wilsonpicture').controller('WilsonpictureUploadController', ['$scope', 'Global', 'Wilsonpicture', 'Pictures', 'Event',
+    function ($scope, Global, Wilsonpicture, Pictures, Event) {
         $scope.global = Global;
         $scope.package = {
             name: 'wilsonpicture'
         };
         $scope.images = [];
+        
+        Event.query(function(events) {
+            $scope.events = events;
+        });
 
         $scope.uploadFileCallback = function (file) {
             if (file.type.indexOf('image') !== -1) {
@@ -41,7 +44,7 @@ angular.module('mean.wilsonpicture').controller('WilsonpictureUploadController',
 
         $scope.submitFiles = function () {
             $scope.images.forEach(function (file) {
-                    //On save la picture dans mongo
+
                     console.log(file);
 
                     var picture = new Pictures({
@@ -49,25 +52,11 @@ angular.module('mean.wilsonpicture').controller('WilsonpictureUploadController',
                         url: file.src,
                         created: file.created
                     });
+
                     picture.$save(function(response) {
                         console.log("Upload ok vers serveur");
                     });
 
-
-                 /*   var picture = new Picture();
-                    // picture.user = req.user;
-                    picture.name = file.name;
-                    picture.src = file.src;
-                    picture.created = file.created;
-
-
-                    picture.save(function (err) {
-                        if (err) {
-                            console.log('Cannot save the article');
-                        }
-                    });
-
-*/
                 }
             );
 

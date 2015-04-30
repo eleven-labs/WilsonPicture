@@ -9,7 +9,7 @@ var mongoose = require('mongoose'),
 
 
 /**
- * Create an article
+ * Create a picture
  */
 exports.create = function(req, res) {
   var picture = new Picture(req.body);

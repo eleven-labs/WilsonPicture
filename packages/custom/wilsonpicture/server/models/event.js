@@ -8,9 +8,9 @@ var mongoose = require('mongoose'),
 
 
 /**
- * Picture Schema
+ * Event Schema
  */
-var PictureSchema = new Schema({
+var EventSchema = new Schema({
     created: {
         type: Date,
         default: Date.now
@@ -19,17 +19,15 @@ var PictureSchema = new Schema({
         type: String,
         required: true
     },
-    url: {
-        type: String,
-        required: true
+    date: {
+        type: Date
+    },
+    location: {
+      type: String
     },
     user: {
         type: Schema.ObjectId,
         ref: 'User'
-    },
-    event: {
-        type: String,
-        required: true
     }
 });
 
@@ -42,4 +40,4 @@ ArticleSchema.statics.load = function(id, cb) {
     }).populate('user', 'name username').exec(cb);
 };
 */
-mongoose.model('Picture', PictureSchema);
+mongoose.model('Event', EventSchema);
