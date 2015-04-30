@@ -13,7 +13,7 @@ var mean = require('meanio');
 var cluster = require('cluster');
 
 //For tmp prob
-process.env.TMPDIR = 'tmp';
+//process.env.TMPDIR = 'tmp';
 
 
 // Code to run if we're in the master process or if we are not in debug mode/ running tests

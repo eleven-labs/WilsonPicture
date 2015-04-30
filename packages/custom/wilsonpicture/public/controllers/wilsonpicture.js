@@ -31,11 +31,16 @@ angular.module('mean.wilsonpicture').controller('WilsonpictureUploadController',
             $scope.events = events;
         });
 
+
+        $scope.uploadCallback= function(file) {
+             console.log(file);
+        };
+
         $scope.uploadFileCallback = function (file) {
             if (file.type.indexOf('image') !== -1) {
 
                 //Randomize filename
-
+                console.log(file);
                 $scope.images.push(file);
 
             }

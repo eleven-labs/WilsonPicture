@@ -8,13 +8,15 @@ var fs = require('fs'),
 
 
 function rename(file, dest, user, callback) {
-    fs.rename(file.path, directory + dest + file.name, function(err) {
+    var d = new Date();
+    var filesrc =  d.getTime() + file.name;
+    fs.rename(file.path, directory + dest + filesrc, function (err) {
         if (err) throw err;
         else
             callback({
                 success: true,
                 file: {
-                    src: '/files/public' + dest + file.name,
+                    src: '/files/public' + dest + filesrc,
                     name: file.name,
                     size: file.size,
                     type: file.type,
@@ -38,11 +40,11 @@ function mkdir_p(path, callback, position) {
     }
 
     var directory = parts.slice(0, position + 1).join(osSep) || osSep;
-    fs.stat(directory, function(err) {
+    fs.stat(directory, function (err) {
         if (err === null) {
             mkdir_p(path, callback, position + 1);
         } else {
-            mkdirOrig(directory, function(err) {
+            mkdirOrig(directory, function (err) {
                 if (err && err.code !== 'EEXIST') {
                     return callback(err);
                 } else {
@@ -53,16 +55,16 @@ function mkdir_p(path, callback, position) {
     });
 }
 
-exports.upload = function(req, res) {
+exports.upload = function (req, res) {
     var path = directory + req.body.dest;
     if (!fs.existsSync(path)) {
-        mkdir_p(path, function(err) {
-            rename(req.files.file, req.body.dest, req.user, function(data) {
+        mkdir_p(path, function (err) {
+            rename(req.files.file, req.body.dest, req.user, function (data) {
                 res.jsonp(data);
             });
         });
     } else {
-        rename(req.files.file, req.body.dest, req.user, function(data) {
+        rename(req.files.file, req.body.dest, req.user, function (data) {
             res.jsonp(data);
         });
     }
