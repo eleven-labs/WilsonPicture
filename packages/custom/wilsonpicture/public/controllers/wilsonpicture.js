@@ -19,7 +19,7 @@ angular.module('mean.wilsonpicture').controller('WilsonpictureUploadController',
             name: 'wilsonpicture'
         };
         $scope.images = [];
-        
+
         Event.query(function(events) {
             $scope.events = events;
         });
