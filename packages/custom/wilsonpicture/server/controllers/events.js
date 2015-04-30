@@ -24,7 +24,7 @@ exports.create = function (req, res) {
         res.json(event);
 
     });
-}
+};
 
 /**
  * List of Events

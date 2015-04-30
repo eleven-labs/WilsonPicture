@@ -12,15 +12,22 @@ angular.module('mean.wilsonpicture').controller('WilsonpictureController', ['$sc
     }
 ]);
 
-angular.module('mean.wilsonpicture').controller('WilsonpictureUploadController', ['$scope', 'Global', 'Wilsonpicture', 'Pictures', 'Event',
-    function ($scope, Global, Wilsonpicture, Pictures, Event) {
+angular.module('mean.wilsonpicture').controller('WilsonpictureUploadController', ['$scope', 'Global', 'Wilsonpicture', 'Pictures', 'Events',
+    function ($scope, Global, Wilsonpicture, Pictures, Events) {
         $scope.global = Global;
         $scope.package = {
             name: 'wilsonpicture'
         };
         $scope.images = [];
+        $scope.event = {
+            name: "",
+            date: null,
+            location: null
+        };
 
-        Event.query(function(events) {
+        $scope.selectedEvent = null;
+
+        Events.query(function(events) {
             $scope.events = events;
         });
 
@@ -42,6 +49,23 @@ angular.module('mean.wilsonpicture').controller('WilsonpictureUploadController',
         };
 
 
+       $scope.submitEvent = function () {
+           var newEvent = new Events({
+               name: $scope.event.name,
+               date: $scope.event.date,
+               location: $scope.event.location
+           });
+
+
+
+           newEvent.$save(function(response) {
+               console.log("Event save");
+               Events.query(function(events) {
+                   $scope.events = events;
+               });
+           });
+       };
+
         $scope.submitFiles = function () {
             $scope.images.forEach(function (file) {
 
@@ -50,7 +74,8 @@ angular.module('mean.wilsonpicture').controller('WilsonpictureUploadController',
                     var picture = new Pictures({
                         name: file.name,
                         url: file.src,
-                        created: file.created
+                        created: file.created,
+                        event: $scope.selectedEvent
                     });
 
                     picture.$save(function(response) {
