@@ -13,5 +13,10 @@ angular.module('mean.wilsonpicture').config(['$stateProvider',
         });
 
 
+        $stateProvider.state('events', {
+            url: '/wilsonpicture/events',
+            templateUrl: 'wilsonpicture/views/events.html'
+        });
+
     }
 ]);

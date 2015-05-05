@@ -1,3 +1,8 @@
 .wilsonpicture-example h1 {
   background-color: purple
 }
+
+.img-event-vignette {
+    max-width: 140px;
+    max-height: 140px;
+}

@@ -7,6 +7,8 @@ var mongoose = require('mongoose'),
     Schema = mongoose.Schema;
 
 
+
+
 /**
  * Event Schema
  */
@@ -28,16 +30,19 @@ var EventSchema = new Schema({
     user: {
         type: Schema.ObjectId,
         ref: 'User'
+    },
+    mainPicture: {
+        type: String
     }
 });
 
 /**
  * Statics
- *
-ArticleSchema.statics.load = function(id, cb) {
+ */
+EventSchema.statics.load = function(id, cb) {
     this.findOne({
         _id: id
-    }).populate('user', 'name username').exec(cb);
+    }).exec(cb);
 };
-*/
+
 mongoose.model('Event', EventSchema);

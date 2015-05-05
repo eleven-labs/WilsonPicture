@@ -12,6 +12,23 @@ angular.module('mean.wilsonpicture').controller('WilsonpictureController', ['$sc
     }
 ]);
 
+angular.module('mean.wilsonpicture').controller('EventsController', ['$scope', 'Global', 'Events',
+    function ($scope, Global, Events) {
+        $scope.global = Global;
+        $scope.package = {
+            name: 'wilsonpicture'
+        };
+
+        Events.query(function(events) {
+            $scope.events = events;
+        });
+
+
+
+    }
+]);
+
+
 angular.module('mean.wilsonpicture').controller('WilsonpictureUploadController', ['$scope', 'Global', 'Wilsonpicture', 'Pictures', 'Events',
     function ($scope, Global, Wilsonpicture, Pictures, Events) {
         $scope.global = Global;
@@ -52,19 +69,17 @@ angular.module('mean.wilsonpicture').controller('WilsonpictureUploadController',
         $scope.uploadFinished = function (files) {
             console.log("Uploads OK");
         };
-
-
+        
        $scope.submitEvent = function () {
            var newEvent = new Events({
                name: $scope.event.name,
                date: $scope.event.date,
-               location: $scope.event.location
+               location: $scope.event.location,
+               mainPicture: null
            });
 
-
-
            newEvent.$save(function(response) {
-               console.log("Event save");
+               console.log("Event saved");
                Events.query(function(events) {
                    $scope.events = events;
                });
@@ -72,9 +87,9 @@ angular.module('mean.wilsonpicture').controller('WilsonpictureUploadController',
        };
 
         $scope.submitFiles = function () {
+            var preview = false;
             $scope.images.forEach(function (file) {
 
-                    console.log(file);
 
                     var picture = new Pictures({
                         name: file.name,
@@ -84,7 +99,22 @@ angular.module('mean.wilsonpicture').controller('WilsonpictureUploadController',
                     });
 
                     picture.$save(function(response) {
-                        console.log("Upload ok vers serveur");
+
+                        //Si pas de photo par defaut dans l'event, on ajoute la premiere uploadée
+                        Events.get({
+                            eventId: $scope.selectedEvent
+                        }, function(updatedEvent) {
+
+                            if (!updatedEvent.mainPicture && !preview) {
+                                preview = true;
+                                updatedEvent.mainPicture = file.src;
+                                console.log(updatedEvent);
+
+                                updatedEvent.$update(function(response) {
+                                    console.log("event updated");
+                                });
+                            }
+                        });
                     });
 
                 }

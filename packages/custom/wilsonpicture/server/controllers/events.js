@@ -9,6 +9,19 @@ var mongoose = require('mongoose'),
 
 
 /**
+ * Find event by id
+ */
+exports.event = function(req, res, next, id) {
+    Event.load(id, function(err, event) {
+        if (err) return next(err);
+        if (!event) return next(new Error('Failed to load event ' + id));
+        req.event = event;
+        next();
+    });
+};
+
+
+/**
  * Create an event
  */
 exports.create = function (req, res) {
@@ -19,6 +32,37 @@ exports.create = function (req, res) {
         if (err) {
             return res.status(500).json({
                 error: 'Cannot save the event ' + err
+            });
+        }
+        res.json(event);
+
+    });
+};
+
+/**
+ * Show an event
+ */
+exports.show = function(req, res) {
+    res.json(req.event);
+};
+
+
+/**
+ * Update an event
+ */
+exports.update = function(req, res) {
+    console.log(req);
+
+    var event = req.event;
+
+    event = _.extend(event, req.body);
+
+
+
+    event.save(function(err) {
+        if (err) {
+            return res.status(500).json({
+                error: 'Cannot update the event'
             });
         }
         res.json(event);

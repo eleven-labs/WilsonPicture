@@ -1,0 +1,11 @@
+<div data-ng-controller="EventsController">
+
+
+    <div class="row">
+        <div class="event-vignette" data-ng-repeat="event in events">
+            <img src="{{ event.mainPicture ? event.mainPicture : 'notfound' }}"
+                 class="img-rounded img-event-vignette"/>
+            {{ event.name }}
+        </div>
+    </div>
+</div>

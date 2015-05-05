@@ -33,6 +33,14 @@ Wilsonpicture.register(function (app, auth, database) {
             menu: 'main'
         });
 
+    Wilsonpicture.menus.add(
+        {
+            title: 'Evenements',
+            link: 'events',
+            roles: ['authenticated'],
+            menu: 'main'
+        });
+
     Wilsonpicture.aggregateAsset('css', 'wilsonpicture.css');
 
     /**
