@@ -1,9 +1,10 @@
 <div class="" data-ng-controller="WilsonpictureUploadController">
     <div class="row">
         <h3>Etape 1</h3>
+
         <div class="col-md-4">
 
-            <h4>Selectionnez un evenement</h4>
+            <h4>Séléctionner un evenement</h4>
 
             <select name="event" id="event" class="form-control" data-ng-model="selectedEvent">
                 <option data-ng-repeat="event in events" value="{{event._id}}">{{event.name}}</option>
@@ -15,7 +16,7 @@
         </div>
 
         <div class="col-md-5">
-            <h4>Ou creez un nouvel evenement</h4>
+            <h4>Ou créer un nouvel evenement</h4>
             <br/>
 
             <form role="form" ng-submit="submitEvent()">
@@ -26,12 +27,14 @@
 
                 <div class="form-group">
                     <label for="eventDate">Date</label>
-                    <input id="eventDate" type="text" class="form-control" name="eventDate" value="2015-01-01" data-ng-model="event.date"/>
+                    <input id="eventDate" type="text" class="form-control" name="eventDate" value="2015-01-01"
+                           data-ng-model="event.date"/>
                 </div>
 
                 <div class="form-group">
                     <label for="eventLocation">Lieu</label>
-                    <input id="eventLocation" type="text" class="form-control" name="eventLocation" data-ng-model="event.location"/>
+                    <input id="eventLocation" type="text" class="form-control" name="eventLocation"
+                           data-ng-model="event.location"/>
                 </div>
 
                 <button type="submit" class="btn btn-default">Valider</button>
@@ -39,28 +42,39 @@
         </div>
     </div>
 
-    <div class="row">
+    <div class="row" data-ng-if="selectedEvent">
         <br/><br/>
 
         <h3>Etape 2</h3>
         <br/>
         <h4>Ajouter une ou plusieurs photos</h4>
+        <br/>
         <mean-upload file-dest="'/packages/files/'"
                      upload-callback="uploadFinished(files)"
                      upload-file-callback="uploadFileCallback(file)">
         </mean-upload>
 
+        <br/>
+
+        <div data-ng-if="uploadStatus == 1" class="alert alert-success" role="alert">Fichiers uploadés</div>
         <br/><br/>
-        <input type="button" data-ng-if="images.length > 0" value="Valider" data-ng-click="submitFiles()">
 
-        <br/><br/>
+        <div data-ng-if="images.length > 0">
+            <input  class="btn btn-default" type="button"  value="Valider" data-ng-click="submitFiles()">
 
-        <h4>Fichiers en attentes de validations</h4>
-        <ul>
-            <div data-ng-repeat="img in images">
+            <br/><br/>
 
-                <li><img data-ng-src="{{img.src}}" class="img-rounded" style="max-width: 140px;max-height: 140px"></li>
-            </div>
-        </ul>
+
+            <h4>Fichiers en attentes de validations</h4>
+            <ul>
+                <div data-ng-repeat="img in images">
+
+                    <li><img data-ng-src="{{img.src}}" class="img-rounded" style="max-width: 140px;max-height: 140px">
+                    </li>
+                </div>
+            </ul>
+        </div>
     </div>
+
+    <br/><br/><br/>
 </div>

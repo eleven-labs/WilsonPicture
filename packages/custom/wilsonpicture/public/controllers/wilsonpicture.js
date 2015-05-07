@@ -21,18 +21,17 @@ angular.module('mean.wilsonpicture').controller('EventsViewController', ['$scope
 
         Events.get({
             eventId: $stateParams.eventId
-        }, function(event) {
+        }, function (event) {
             $scope.event = event;
         });
 
-
-        Pictures.query(function(pictures) {
+        Pictures.query({eventId: $stateParams.eventId}, function (pictures) {
             $scope.pictures = pictures;
+
         });
 
     }
 ]);
-
 
 
 angular.module('mean.wilsonpicture').controller('EventsController', ['$scope', 'Global', 'Events',
@@ -42,10 +41,9 @@ angular.module('mean.wilsonpicture').controller('EventsController', ['$scope', '
             name: 'wilsonpicture'
         };
 
-        Events.query(function(events) {
+        Events.query(function (events) {
             $scope.events = events;
         });
-
 
 
     }
@@ -59,6 +57,7 @@ angular.module('mean.wilsonpicture').controller('WilsonpictureUploadController',
             name: 'wilsonpicture'
         };
         $scope.images = [];
+        $scope.uploadStatus = 0;
         $scope.event = {
             name: "",
             date: null,
@@ -67,13 +66,14 @@ angular.module('mean.wilsonpicture').controller('WilsonpictureUploadController',
 
         $scope.selectedEvent = null;
 
-        Events.query(function(events) {
+        Events.query(function (events) {
             $scope.events = events;
         });
 
 
-        $scope.uploadCallback= function(file) {
-             console.log(file);
+        $scope.uploadCallback = function (file) {
+            $scope.uploadStatus = 0;
+            console.log(file);
         };
 
         $scope.uploadFileCallback = function (file) {
@@ -90,27 +90,29 @@ angular.module('mean.wilsonpicture').controller('WilsonpictureUploadController',
         };
 
         $scope.uploadFinished = function (files) {
-            console.log("Uploads OK");
+
         };
 
-       $scope.submitEvent = function () {
-           var newEvent = new Events({
-               name: $scope.event.name,
-               date: $scope.event.date,
-               location: $scope.event.location,
-               mainPicture: null
-           });
+        $scope.submitEvent = function () {
+            var newEvent = new Events({
+                name: $scope.event.name,
+                date: $scope.event.date,
+                location: $scope.event.location,
+                mainPicture: null
+            });
 
-           newEvent.$save(function(response) {
-               console.log("Event saved");
-               Events.query(function(events) {
-                   $scope.events = events;
-               });
-           });
-       };
+            newEvent.$save(function (response) {
+                console.log("Event saved");
+                Events.query(function (events) {
+                    $scope.events = events;
+                });
+            });
+        };
 
         $scope.submitFiles = function () {
             var preview = false;
+            $scope.images = [];
+            $scope.uploadStatus = 1;
             $scope.images.forEach(function (file) {
 
 
@@ -121,19 +123,19 @@ angular.module('mean.wilsonpicture').controller('WilsonpictureUploadController',
                         event: $scope.selectedEvent
                     });
 
-                    picture.$save(function(response) {
+                    picture.$save(function (response) {
 
                         //Si pas de photo par defaut dans l'event, on ajoute la premiere uploadée
                         Events.get({
                             eventId: $scope.selectedEvent
-                        }, function(updatedEvent) {
+                        }, function (updatedEvent) {
 
                             if (!updatedEvent.mainPicture && !preview) {
                                 preview = true;
                                 updatedEvent.mainPicture = file.src;
                                 console.log(updatedEvent);
 
-                                updatedEvent.$update(function(response) {
+                                updatedEvent.$update(function (response) {
                                     console.log("event updated");
                                 });
                             }
@@ -142,6 +144,9 @@ angular.module('mean.wilsonpicture').controller('WilsonpictureUploadController',
 
                 }
             );
+
+
+
 
 
         }
