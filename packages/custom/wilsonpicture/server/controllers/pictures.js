@@ -25,3 +25,19 @@ exports.create = function(req, res) {
 
   });
 };
+
+
+/**
+ * List of Pictures
+ */
+exports.all = function (req, res) {
+    Picture.find().sort('-created').exec(function (err, pictures) {
+        if (err) {
+            return res.status(500).json({
+                error: 'Cannot list the pictures ' + err
+            });
+        }
+        res.json(pictures);
+
+    });
+};

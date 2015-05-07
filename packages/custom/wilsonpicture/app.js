@@ -16,10 +16,10 @@ Wilsonpicture.register(function (app, auth, database) {
     //We enable routing. By default the Package Object is passed to the routes
     Wilsonpicture.routes(app, auth, database);
 
-    //We are adding a link to the main menu for all authenticated users
+
     Wilsonpicture.menus.add({
-            title: 'wilsonpicture example page',
-            link: 'wilsonpicture example page',
+            title: 'Wilson Picture',
+            link: 'home',
             roles: ['authenticated'],
             menu: 'main'
         }

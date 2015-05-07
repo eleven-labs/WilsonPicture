@@ -3,6 +3,30 @@
 }
 
 .img-event-vignette {
-    max-width: 140px;
+    max-width: 200px;
     max-height: 140px;
+}
+
+.event-vignette {
+    width: 210px;
+    height: 170px;
+
+    margin: 5px;
+    float: left;
+    text-align: center;
+}
+
+
+.img-picture-vignette {
+    max-width: 200px;
+    max-height: 140px;
+}
+
+.picture-vignette {
+    width: 210px;
+    height: 170px;
+
+    margin: 5px;
+    float: left;
+    text-align: center;
 }

@@ -12,6 +12,29 @@ angular.module('mean.wilsonpicture').controller('WilsonpictureController', ['$sc
     }
 ]);
 
+angular.module('mean.wilsonpicture').controller('EventsViewController', ['$scope', '$stateParams', 'Global', 'Events', 'Pictures',
+    function ($scope, $stateParams, Global, Events, Pictures) {
+        $scope.global = Global;
+        $scope.package = {
+            name: 'wilsonpicture'
+        };
+
+        Events.get({
+            eventId: $stateParams.eventId
+        }, function(event) {
+            $scope.event = event;
+        });
+
+
+        Pictures.query(function(pictures) {
+            $scope.pictures = pictures;
+        });
+
+    }
+]);
+
+
+
 angular.module('mean.wilsonpicture').controller('EventsController', ['$scope', 'Global', 'Events',
     function ($scope, Global, Events) {
         $scope.global = Global;
@@ -69,7 +92,7 @@ angular.module('mean.wilsonpicture').controller('WilsonpictureUploadController',
         $scope.uploadFinished = function (files) {
             console.log("Uploads OK");
         };
-        
+
        $scope.submitEvent = function () {
            var newEvent = new Events({
                name: $scope.event.name,
