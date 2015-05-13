@@ -3,11 +3,15 @@
 
 /* jshint -W098 */
 angular.module('mean.wilsonpicture').controller('WilsonpictureController', ['$scope', 'Global', 'Wilsonpicture',
-    function ($scope, Global, Wilsonpicture) {
+    function ($scope, Global) {
         $scope.global = Global;
         $scope.package = {
             name: 'wilsonpicture'
         };
+
+
+        $scope.nbEvent = 999;
+        $scope.nbPicture = 9999;
 
     }
 ]);

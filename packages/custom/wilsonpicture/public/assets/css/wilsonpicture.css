@@ -33,3 +33,11 @@
     float: left;
     text-align: center;
 }
+
+.summary {
+    font-size: 14px;
+}
+
+.center {
+    text-align: center;
+}
