@@ -2,7 +2,10 @@
 
     <div class="row">
 
-        <h1>{{event.name}}</h1>
+        <h1>{{event.name}}
+            <br/>
+        <span class="event-location">{{event.date}} - {{event.location}}</span>
+        </h1>
 
         <div class="picture-vignette" data-ng-repeat="picture in pictures">
 

@@ -80,7 +80,7 @@ angular.module('mean.wilsonpicture').controller('WilsonpictureUploadController',
             if (file.type.indexOf('image') !== -1) {
 
                 //Randomize filename
-                console.log(file);
+
                 $scope.images.push(file);
 
             }
@@ -111,7 +111,7 @@ angular.module('mean.wilsonpicture').controller('WilsonpictureUploadController',
 
         $scope.submitFiles = function () {
             var preview = false;
-            $scope.images = [];
+
             $scope.uploadStatus = 1;
             $scope.images.forEach(function (file) {
 
@@ -124,7 +124,7 @@ angular.module('mean.wilsonpicture').controller('WilsonpictureUploadController',
                     });
 
                     picture.$save(function (response) {
-
+                        console.log("Picture Saved");
                         //Si pas de photo par defaut dans l'event, on ajoute la premiere uploadée
                         Events.get({
                             eventId: $scope.selectedEvent
@@ -142,14 +142,10 @@ angular.module('mean.wilsonpicture').controller('WilsonpictureUploadController',
                         });
                     });
 
-                }
-            );
-
-
-
-
-
+                });
+            $scope.images = [];
         }
+
 
     }
 ]);

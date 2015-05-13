@@ -4,7 +4,7 @@
 
         <div class="col-md-4">
 
-            <h4>Séléctionner un evenement</h4>
+            <h4>Séléctionner un évènement</h4>
 
             <select name="event" id="event" class="form-control" data-ng-model="selectedEvent">
                 <option data-ng-repeat="event in events" value="{{event._id}}">{{event.name}}</option>
@@ -16,7 +16,7 @@
         </div>
 
         <div class="col-md-5">
-            <h4>Ou créer un nouvel evenement</h4>
+            <h4>Ou créer un nouvel évènement</h4>
             <br/>
 
             <form role="form" ng-submit="submitEvent()">
@@ -27,8 +27,11 @@
 
                 <div class="form-group">
                     <label for="eventDate">Date</label>
-                    <input id="eventDate" type="text" class="form-control" name="eventDate" value="2015-01-01"
-                           data-ng-model="event.date"/>
+
+                    <div style=" min-height:280px;">
+                        <datepicker  id="eventDate" data-ng-model="event.date"  show-weeks="true" class="well well-sm" ></datepicker>
+                    </div>
+
                 </div>
 
                 <div class="form-group">
@@ -57,7 +60,7 @@
         <br/>
 
 
-        
+
         <div data-ng-if="uploadStatus == 1" class="alert alert-success" role="alert">Fichiers uploadés</div>
         <br/><br/>
 

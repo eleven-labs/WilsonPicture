@@ -16,6 +16,9 @@
     text-align: center;
 }
 
+.event-location {
+    font-size: 14px;
+}
 
 .img-picture-vignette {
     max-width: 200px;
