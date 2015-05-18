@@ -32,7 +32,19 @@ exports.create = function(req, res) {
  */
 exports.all = function (req, res) {
 
-    if (req.query.eventId) {
+    if (req.query.count) {
+        Picture.count().exec(function(err, nb) {
+            if (err) {
+                return res.status(500).json({
+                    error: 'Cannot list the pictures ' + err
+                });
+            }
+
+            res.json({count: nb});
+        })
+
+    }
+    else if (req.query.eventId) {
         Picture.find({event: req.query.eventId}).sort('-created').exec(function (err, pictures) {
             if (err) {
                 return res.status(500).json({

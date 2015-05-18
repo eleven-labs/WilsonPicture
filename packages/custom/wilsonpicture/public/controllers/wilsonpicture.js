@@ -2,8 +2,8 @@
 
 
 /* jshint -W098 */
-angular.module('mean.wilsonpicture').controller('WilsonpictureController', ['$scope', 'Global', 'Wilsonpicture',
-    function ($scope, Global) {
+angular.module('mean.wilsonpicture').controller('WilsonpictureController', ['$scope', 'Global', 'Pictures',
+    function ($scope, Global, Pictures) {
         $scope.global = Global;
         $scope.package = {
             name: 'wilsonpicture'
@@ -11,7 +11,9 @@ angular.module('mean.wilsonpicture').controller('WilsonpictureController', ['$sc
 
 
         $scope.nbEvent = 999;
-        $scope.nbPicture = 9999;
+        Pictures.count(function(e) {
+            $scope.nbPicture = e.count;
+        });
 
     }
 ]);
