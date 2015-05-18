@@ -74,13 +74,28 @@ exports.update = function(req, res) {
  * List of Events
  */
 exports.all = function (req, res) {
-    Event.find().sort('-created').exec(function (err, events) {
-        if (err) {
-            return res.status(500).json({
-                error: 'Cannot list the events ' + err
-            });
-        }
-        res.json(events);
 
-    });
+    if (req.query.count) {
+        Event.count().exec(function(err, nb) {
+            if (err) {
+                return res.status(500).json({
+                    error: 'Cannot list the event ' + err
+                });
+            }
+
+            res.json({count: nb});
+        })
+
+    } else {
+
+        Event.find().sort('-created').exec(function (err, events) {
+            if (err) {
+                return res.status(500).json({
+                    error: 'Cannot list the events ' + err
+                });
+            }
+            res.json(events);
+
+        });
+    }
 };
