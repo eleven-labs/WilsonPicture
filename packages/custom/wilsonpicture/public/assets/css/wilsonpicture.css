@@ -3,9 +3,17 @@
   background-color: purple
 }
 
+.logo-header {
+    height: 40px;
+    margin-top: 5px;
+}
 .img-event-vignette {
     max-width: 200px;
     max-height: 140px;
+}
+
+.eleven-color {
+    color: #E7DB00!important;
 }
 
 .event-vignette {

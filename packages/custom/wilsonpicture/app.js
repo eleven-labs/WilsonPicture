@@ -35,7 +35,7 @@ Wilsonpicture.register(function (app, auth, database) {
 
     Wilsonpicture.menus.add(
         {
-            title: 'Evenements',
+            title: 'Evènements',
             link: 'events',
             roles: ['authenticated'],
             menu: 'main'
