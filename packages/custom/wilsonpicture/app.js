@@ -27,16 +27,16 @@ Wilsonpicture.register(function (app, auth, database) {
 
     Wilsonpicture.menus.add(
         {
-            title: 'Uploader une photo',
-            link: 'upload_picture',
+            title: 'Evènements',
+            link: 'events',
             roles: ['authenticated'],
             menu: 'main'
         });
 
     Wilsonpicture.menus.add(
         {
-            title: 'Evènements',
-            link: 'events',
+            title: 'Uploader une photo',
+            link: 'upload_picture',
             roles: ['authenticated'],
             menu: 'main'
         });
