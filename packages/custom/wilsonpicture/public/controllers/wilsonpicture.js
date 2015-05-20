@@ -75,6 +75,7 @@ angular.module('mean.wilsonpicture').controller('WilsonpictureUploadController',
         };
 
         $scope.selectedEvent = null;
+        $scope.etape1 = 1;
 
         Events.query(function (events) {
             $scope.events = events;

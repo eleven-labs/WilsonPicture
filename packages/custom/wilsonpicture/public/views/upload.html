@@ -1,54 +1,57 @@
 <div class="" data-ng-controller="WilsonpictureUploadController">
     <div class="row">
-        <h3>Etape 1</h3>
+        <h3 id="etape1-title">Evènement : <span id="event-name"></span>  <span id="event-cursor" style="font-size:10px"></span></h3>
 
-        <div class="col-md-4">
+        <div id="etape1" >
+            <div class="col-md-4">
 
-            <h4>Séléctionner un évènement</h4>
+                <h4>Séléctionner un évènement</h4>
 
-            <select name="event" id="event" class="form-control" data-ng-model="selectedEvent">
-                <option data-ng-repeat="event in events" value="{{event._id}}">{{event.name}}</option>
-            </select>
-            <br/><br/>
-        </div>
+                <select name="event" id="event" class="form-control" data-ng-model="selectedEvent">
+                    <option data-ng-repeat="event in events" value="{{event._id}}">{{event.name}}</option>
+                </select>
+                <br/><br/>
+            </div>
 
-        <div class="col-md-2">
-        </div>
+            <div class="col-md-2">
+            </div>
 
-        <div class="col-md-5">
-            <h4>Ou créer un nouvel évènement</h4>
-            <br/>
+            <div class="col-md-5">
+                <h4>Ou créer un nouvel évènement</h4>
+                <br/>
 
-            <form role="form" ng-submit="submitEvent()">
-                <div class="form-group">
-                    <label for="eventName">Nom de l'évènement</label>
-                    <input id="eventName" type="text" class="form-control" name="eventName" data-ng-model="event.name"/>
-                </div>
-
-                <div class="form-group">
-                    <label for="eventDate">Date</label>
-
-                    <div style=" min-height:280px;">
-                        <datepicker  id="eventDate" data-ng-model="event.date"  show-weeks="true" class="well well-sm" ></datepicker>
+                <form role="form" ng-submit="submitEvent()">
+                    <div class="form-group">
+                        <label for="eventName">Nom de l'évènement</label>
+                        <input id="eventName" type="text" class="form-control" name="eventName"
+                               data-ng-model="event.name"/>
                     </div>
 
-                </div>
+                    <div class="form-group">
+                        <label for="eventDate">Date</label>
 
-                <div class="form-group">
-                    <label for="eventLocation">Lieu</label>
-                    <input id="eventLocation" type="text" class="form-control" name="eventLocation"
-                           data-ng-model="event.location"/>
-                </div>
+                        <div style=" min-height:280px;">
+                            <datepicker id="eventDate" data-ng-model="event.date" show-weeks="true"
+                                        class="well well-sm"></datepicker>
+                        </div>
 
-                <button type="submit" class="btn btn-default">Valider</button>
-            </form>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="eventLocation">Lieu</label>
+                        <input id="eventLocation" type="text" class="form-control" name="eventLocation"
+                               data-ng-model="event.location"/>
+                    </div>
+
+                    <button type="submit" class="btn btn-default">Valider</button>
+                </form>
+            </div>
         </div>
     </div>
-
     <div class="row" data-ng-if="selectedEvent">
         <br/><br/>
 
-        <h3>Etape 2</h3>
+        <h3>Photos : </h3>
         <br/>
         <h4>Ajouter une ou plusieurs photos</h4>
         <br/>
@@ -60,12 +63,11 @@
         <br/>
 
 
-
         <div data-ng-if="uploadStatus == 1" class="alert alert-success" role="alert">Fichiers uploadés</div>
         <br/><br/>
 
         <div data-ng-if="images.length > 0">
-            <input  class="btn btn-default" type="button"  value="Valider" data-ng-click="submitFiles()">
+            <input class="btn btn-default" type="button" value="Valider" data-ng-click="submitFiles()">
 
             <br/><br/>
 
@@ -83,3 +85,19 @@
 
     <br/><br/><br/>
 </div>
+
+<script>
+    $('#event').change(function() {
+        $("#etape1").slideUp();
+        $("#event-name").html($('#event option:selected').text());
+        $("#event-cursor").attr('class', 'glyphicon glyphicon-chevron-down');
+
+    });
+
+
+
+    $("#etape1-title").click(function() {
+        $("#etape1").slideDown();
+        $("#event-cursor").attr('class', 'glyphicon glyphicon-chevron-up');
+    })
+</script>
