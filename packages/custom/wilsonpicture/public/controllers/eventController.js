@@ -1,6 +1,9 @@
 'use strict';
 
-
+/**
+ * Event show controller
+ * @template : view.html
+ */
 angular.module('mean.wilsonpicture').controller('EventsViewController', ['$scope', '$stateParams', 'Global', 'Events', 'Pictures',
     function ($scope, $stateParams, Global, Events, Pictures) {
         $scope.global = Global;
@@ -22,6 +25,10 @@ angular.module('mean.wilsonpicture').controller('EventsViewController', ['$scope
     }
 ]);
 
+/**
+ * Event list controller
+ * @template: events.html
+ */
 angular.module('mean.wilsonpicture').controller('EventsController', ['$scope', 'Global', 'Events',
     function ($scope, Global, Events) {
         $scope.global = Global;
