@@ -43,6 +43,13 @@ Wilsonpicture.register(function (app, auth, database) {
 
     Wilsonpicture.aggregateAsset('css', 'wilsonpicture.css');
 
+    Wilsonpicture.aggregateAsset('css', 'blueimp-gallery.min.css');
+    Wilsonpicture.aggregateAsset('css', 'bootstrap-image-gallery.min.css');
+
+    Wilsonpicture.aggregateAsset('js', 'jquery.blueimp-gallery.min.js');
+    Wilsonpicture.aggregateAsset('js', 'bootstrap-image-gallery.min.js');
+
+
     /**
      //Uncomment to use. Requires meanio@0.3.7 or above
      // Save settings with callback
