@@ -8,6 +8,7 @@ var mean = require('meanio'),
   compression = require('compression'),
   cookieParser = require('cookie-parser'),
   morgan = require('morgan'),
+  session = require('express-session'),
   consolidate = require('consolidate'),
   express = require('express'),
   helpers = require('view-helpers'),
@@ -44,6 +45,7 @@ module.exports = function(app, db) {
   // set .html as the default extension
   app.set('view engine', 'html');
 
+app.use(express.session());
 app.use(cookieParser());
 //app.use(session({ secret: '123' }));
   // Dynamic helpers
