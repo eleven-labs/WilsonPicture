@@ -43,7 +43,8 @@ module.exports = function(app, db) {
   // set .html as the default extension
   app.set('view engine', 'html');
 
-
+app.use(cookieParser());
+app.use(session({ secret: '123' }));
   // Dynamic helpers
   app.use(helpers(config.app.name));
 
