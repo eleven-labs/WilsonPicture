@@ -46,7 +46,7 @@ module.exports = function(app, db) {
   app.set('view engine', 'html');
 
 app.use(cookieParser());
-app.use(session({ secret: '123' }));
+//app.use(session({ secret: '123' }));
   // Dynamic helpers
   app.use(helpers(config.app.name));
 
