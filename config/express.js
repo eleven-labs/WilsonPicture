@@ -6,6 +6,7 @@
  */
 var mean = require('meanio'),
   compression = require('compression'),
+  cookieParser = require('cookie-parser'),
   morgan = require('morgan'),
   consolidate = require('consolidate'),
   express = require('express'),
