@@ -95,7 +95,7 @@ module.exports = function(MeanUser) {
             if (!isEleven(user.email)) {
                 errors = [ {msg: "You must register with eleven labs email"}];
             }
-            
+
             if (errors) {
                 return res.status(400).send(errors);
             }

@@ -8,13 +8,15 @@ var fs = require('fs'),
 
 
 function rename(file, dest, user, callback) {
-    fs.rename(file.path, directory + dest + file.name, function(err) {
+    var d = new Date();
+    var filesrc =  d.getTime() + file.name;
+    fs.rename(file.path, directory + dest + filesrc, function(err) {
         if (err) throw err;
         else
             callback({
                 success: true,
                 file: {
-                    src: '/files/public' + dest + file.name,
+                    src: '/files/public' + dest + filesrc,
                     name: file.name,
                     size: file.size,
                     type: file.type,
