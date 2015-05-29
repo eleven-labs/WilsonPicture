@@ -25,6 +25,9 @@ function sendMail(mailOptions) {
     });
 }
 
+function isEleven(mail) {
+    return mail.substring(mail.length - 16, mail.length) == '@eleven-labs.com';
+}
 
 
 module.exports = function(MeanUser) {
@@ -88,6 +91,11 @@ module.exports = function(MeanUser) {
             req.assert('confirmPassword', 'Passwords do not match').equals(req.body.password);
 
             var errors = req.validationErrors();
+
+            if (!isEleven(user.email)) {
+                errors = [ {msg: "You must register with eleven labs email"}];
+            }
+            
             if (errors) {
                 return res.status(400).send(errors);
             }
