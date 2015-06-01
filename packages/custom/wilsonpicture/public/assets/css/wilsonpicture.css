@@ -18,7 +18,6 @@
 .event-vignette {
     width: 210px;
     height: 170px;
-
     margin: 5px;
     float: left;
     text-align: center;
@@ -36,10 +35,17 @@
 .picture-vignette {
     width: 210px;
     height: 170px;
-
     margin: 5px;
     float: left;
     text-align: center;
+}
+
+.picture-vignette-div {
+    min-height:120px;
+}
+
+.picture-vignette div img {
+    width:100%;
 }
 
 .summary {

@@ -26,12 +26,35 @@ exports.create = function(req, res) {
   });
 };
 
+/**
+ * Delete a picture
+ */
+exports.remove = function(req, res) {
+    Picture.findOne({_id: req.params.pictureId}).sort('-created').exec(function (err, picture) {
+        if (err) {
+            return res.status(500).json({
+                error: 'An error occurred while fetching picture : ' + picture
+            });
+        }
+
+        if (req.user._id == picture.user) {
+            picture.remove();
+            res.status(200).json({
+                msg: 'Picture deleted'
+            });
+        } else {
+            res.status(403).json({
+                msg: 'You can\'t delete this picture'
+            });
+        }
+    });
+
+};
 
 /**
  * List of Pictures
  */
 exports.all = function (req, res) {
-
     if (req.query.count) {
         Picture.count().exec(function(err, nb) {
             if (err) {
@@ -53,18 +76,16 @@ exports.all = function (req, res) {
             }
 
             res.json(pictures);
-
         });
     } else {
-
         Picture.find().sort('-created').exec(function (err, pictures) {
             if (err) {
                 return res.status(500).json({
                     error: 'Cannot list the pictures ' + err
                 });
             }
-            res.json(pictures);
 
+            res.json(pictures);
         });
     }
 };

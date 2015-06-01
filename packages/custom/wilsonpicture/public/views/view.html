@@ -36,9 +36,16 @@
 <div data-ng-controller="EventsViewController">
 
     <div id="links">
-        <a data-ng-repeat="picture in pictures" href="{{ picture.url }}" title="" data-gallery>
-            <img src="{{ picture.url }}" alt="" class="picture-vignette">
-        </a>
+        <div data-ng-repeat="picture in pictures" class="picture-vignette" >
+            <div class="picture-vignette-div">
+                <a href="{{ picture.url }}" title="{{ picture.name }}" data-gallery>
+                    <img src="{{ picture.url }}" alt="{{ picture.description }}" />
+                </a>
+            </div>
+            <div class="picture-vignette-actions">
+                <a href="#" data-ng-click="deletePicture(picture._id, $index)">Delete</a>
+            </div>
+        </div>
 
     </div>
 
