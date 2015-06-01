@@ -42,7 +42,8 @@
                     <img src="{{ picture.url }}" alt="{{ picture.description }}" />
                 </a>
             </div>
-            <div class="picture-vignette-actions">
+
+            <div data-ng-show="picture.user == user._id" class="picture-vignette-actions">
                 <a href="#" data-ng-click="deletePicture(picture._id, $index)">Delete</a>
             </div>
         </div>
