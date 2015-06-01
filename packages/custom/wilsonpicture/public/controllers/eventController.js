@@ -19,9 +19,16 @@ angular.module('mean.wilsonpicture').controller('EventsViewController', ['$scope
 
         Pictures.query({eventId: $stateParams.eventId}, function (pictures) {
             $scope.pictures = pictures;
-
         });
 
+        $scope.deletePicture = function (picture_id, index) {
+            var picture = new Pictures({_id: picture_id});
+            picture.$remove(function(success) {
+                $scope.pictures.splice(index, 1);
+            },function(error) {
+                alert(error);
+            });
+        };
     }
 ]);
 
