@@ -22,7 +22,6 @@ exports.create = function(req, res) {
       });
     }
     res.json(picture);
-
   });
 };
 
@@ -48,7 +47,6 @@ exports.remove = function(req, res) {
             });
         }
     });
-
 };
 
 /**
@@ -62,10 +60,8 @@ exports.all = function (req, res) {
                     error: 'Cannot list the pictures ' + err
                 });
             }
-
             res.json({count: nb});
         })
-
     }
     else if (req.query.eventId) {
         Picture.find({event: req.query.eventId}).sort('-created').exec(function (err, pictures) {
@@ -74,7 +70,6 @@ exports.all = function (req, res) {
                     error: 'Cannot list the pictures ' + err
                 });
             }
-
             res.json(pictures);
         });
     } else {
@@ -84,7 +79,6 @@ exports.all = function (req, res) {
                     error: 'Cannot list the pictures ' + err
                 });
             }
-
             res.json(pictures);
         });
     }

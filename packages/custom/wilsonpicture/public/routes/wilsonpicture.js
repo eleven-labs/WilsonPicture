@@ -21,8 +21,6 @@ angular.module('mean.wilsonpicture').config(['$stateProvider',
         $stateProvider.state('home', {
             url: '/',
             templateUrl: 'wilsonpicture/views/index.html'
-
         });
-
     }
 ]);

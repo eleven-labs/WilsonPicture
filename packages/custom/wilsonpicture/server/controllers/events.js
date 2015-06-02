@@ -35,7 +35,6 @@ exports.create = function (req, res) {
             });
         }
         res.json(event);
-
     });
 };
 
@@ -51,13 +50,8 @@ exports.show = function(req, res) {
  * Update an event
  */
 exports.update = function(req, res) {
-    console.log(req);
-
     var event = req.event;
-
     event = _.extend(event, req.body);
-
-
 
     event.save(function(err) {
         if (err) {
@@ -66,7 +60,6 @@ exports.update = function(req, res) {
             });
         }
         res.json(event);
-
     });
 };
 
@@ -98,7 +91,6 @@ exports.remove = function(req, res) {
  * List of Events
  */
 exports.all = function (req, res) {
-
     if (req.query.count) {
         Event.count().exec(function(err, nb) {
             if (err) {
@@ -106,12 +98,9 @@ exports.all = function (req, res) {
                     error: 'Cannot list the event ' + err
                 });
             }
-
             res.json({count: nb});
         })
-
     } else {
-
         Event.find().sort('-created').exec(function (err, events) {
             if (err) {
                 return res.status(500).json({
@@ -119,7 +108,6 @@ exports.all = function (req, res) {
                 });
             }
             res.json(events);
-
         });
     }
 };

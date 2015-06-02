@@ -21,19 +21,14 @@ angular.module('mean.wilsonpicture').controller('WilsonpictureUploadController',
             $scope.events = events;
         });
 
-
         $scope.uploadCallback = function (file) {
             $scope.uploadStatus = 0;
-            console.log(file);
         };
 
         $scope.uploadFileCallback = function (file) {
             if (file.type.indexOf('image') !== -1) {
-
                 //Randomize filename
-
                 $scope.images.push(file);
-
             }
             else {
                 $scope.files.push(file);
@@ -65,8 +60,6 @@ angular.module('mean.wilsonpicture').controller('WilsonpictureUploadController',
 
             $scope.uploadStatus = 1;
             $scope.images.forEach(function (file) {
-
-
                 var picture = new Pictures({
                     name: file.name,
                     url: file.src,
@@ -80,11 +73,9 @@ angular.module('mean.wilsonpicture').controller('WilsonpictureUploadController',
                     Events.get({
                         eventId: $scope.selectedEvent
                     }, function (updatedEvent) {
-
                         if (!updatedEvent.mainPicture && !preview) {
                             preview = true;
                             updatedEvent.mainPicture = file.src;
-                            console.log(updatedEvent);
 
                             updatedEvent.$update(function (response) {
                                 console.log("event updated");
@@ -92,7 +83,6 @@ angular.module('mean.wilsonpicture').controller('WilsonpictureUploadController',
                         }
                     });
                 });
-
             });
             $scope.images = [];
         }
