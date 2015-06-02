@@ -38,18 +38,26 @@ angular.module('mean.wilsonpicture').controller('EventsViewController', ['$scope
  * Event list controller
  * @template: events.html
  */
-angular.module('mean.wilsonpicture').controller('EventsController', ['$scope', 'Global', 'Events',
-    function ($scope, Global, Events) {
+angular.module('mean.wilsonpicture').controller('EventsController', ['$scope', 'Global', 'Events', 'MeanUser',
+    function ($scope, Global, Events, MeanUser) {
         $scope.global = Global;
         $scope.package = {
             name: 'wilsonpicture'
         };
+        $scope.user = MeanUser.user;
 
         Events.query(function (events) {
             $scope.events = events;
         });
 
-
+        $scope.deleteEvent = function (event_id, index) {
+            var event = new Events({_id: event_id});
+            event.$remove(function(success) {
+                $scope.events.splice(index, 1);
+            },function(error) {
+                alert(error);
+            });
+        };
     }
 ]);
 

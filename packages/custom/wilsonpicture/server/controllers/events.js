@@ -71,6 +71,30 @@ exports.update = function(req, res) {
 };
 
 /**
+ * Delete an event
+ */
+exports.remove = function(req, res) {
+    Event.findOne({_id: req.params.eventId}).sort('-created').exec(function (err, event) {
+        if (err) {
+            return res.status(500).json({
+                error: 'An error occurred while fetching event : ' + event
+            });
+        }
+
+        if (req.user._id == event.user) {
+            event.remove();
+            res.status(200).json({
+                msg: 'Event deleted'
+            });
+        } else {
+            res.status(403).json({
+                msg: 'You can\'t delete this event'
+            });
+        }
+    });
+};
+
+/**
  * List of Events
  */
 exports.all = function (req, res) {

@@ -11,8 +11,8 @@ module.exports = function (Events, app, auth) {
 
     app.route('/api/events/:eventId')
         .get(auth.isMongoId, events.show)
-        .put(auth.isMongoId, auth.requiresLogin, events.update);
-
+        .put(auth.isMongoId, auth.requiresLogin, events.update)
+        .delete(auth.requiresLogin, events.remove);
 
     app.param('eventId', events.event);
 };
