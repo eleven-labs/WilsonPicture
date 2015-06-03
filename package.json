@@ -47,7 +47,8 @@
     "view-helpers":"latest",
     "shelljs":"latest",
     "request":"latest",
-    "npm": "^2.1.0"
+    "npm": "^2.1.0",
+    "mongoose-schema-extend":"latest"
   },
   "devDependencies": {
     "connect-modrewrite": "latest",

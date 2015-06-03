@@ -1,8 +1,7 @@
 'use strict';
 
-angular.module('mean.wilsonpicture').config(['$stateProvider',
-    function ($stateProvider) {
-
+angular.module('mean.wilsonpicture')
+    .config(['$stateProvider', function ($stateProvider) {
         $stateProvider.state('events', {
             url: '/wilsonpicture/events',
             templateUrl: 'wilsonpicture/views/events.html'
@@ -22,5 +21,4 @@ angular.module('mean.wilsonpicture').config(['$stateProvider',
             url: '/',
             templateUrl: 'wilsonpicture/views/index.html'
         });
-    }
-]);
+    }]);
