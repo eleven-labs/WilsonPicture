@@ -15,7 +15,7 @@ var mongoose = require('mongoose'),
 
 
 /**
- * Send reset password email
+ * Send email
  */
 function sendMail(mailOptions) {
     var transport = nodemailer.createTransport(config.mailer);
@@ -93,7 +93,7 @@ module.exports = function(MeanUser) {
             var errors = req.validationErrors();
 
             if (!isEleven(user.email)) {
-                errors = [ {msg: "You must register with eleven labs email"}];
+                errors = [{msg: "You must register with an Eleven Labs email"}];
             }
 
             if (errors) {
@@ -102,6 +102,11 @@ module.exports = function(MeanUser) {
 
             // Hard coded for now. Will address this with the user permissions system in v0.3.5
             user.roles = ['authenticated'];
+
+            // Add the confirmation token
+            var token = crypto.randomBytes(30).toString('hex');
+            user.confirmationToken = token;
+
             user.save(function(err) {
                 if (err) {
                     switch (err.code) {
@@ -135,20 +140,35 @@ module.exports = function(MeanUser) {
                 payload.redirect = req.body.redirect;
                 var escaped = JSON.stringify(payload);
                 escaped = encodeURI(escaped);
-                req.logIn(user, function(err) {
-                    if (err) { return next(err); }
 
-                    MeanUser.events.publish('register', {
-                        description: user.name + ' register to the system.'
-                    });
+                // Do not logIn the user directly. They need to validate their email first.
+                var mailOptions = {
+                    to: user.email,
+                    from: config.emailFrom
+                };
+                mailOptions = templates.confirmation_email(user, req, token, mailOptions);
 
-                    // We are sending the payload inside the token
-                    var token = jwt.sign(escaped, config.secret, { expiresInMinutes: 60*5 });
-                    res.json({ token: token });
+                sendMail(mailOptions, function(err, user) {
+                    if (err) {
+                        errors = [{message: err}];
+
+                        MeanUser.events.publish('confirmationemail', {
+                            description: user.name + ' has tried to registered with email: ' + user.email
+                        });
+
+                        return res.status(400).json(errors);
+                    } else {
+                        var response = {
+                            message: 'The confirmation email was successfully sent, please check your inbox',
+                            status: 'success'
+                        };
+
+                        return res.status(200).json(response);
+                    }
                 });
-                res.status(200);
             });
         },
+
         /**
          * Send User
          */
@@ -173,7 +193,6 @@ module.exports = function(MeanUser) {
         /**
          * Resets the password
          */
-
         resetpassword: function(req, res, next) {
             User.findOne({
                 resetPasswordToken: req.params.token,
@@ -201,7 +220,6 @@ module.exports = function(MeanUser) {
                 user.resetPasswordToken = undefined;
                 user.resetPasswordExpires = undefined;
                 user.save(function(err) {
-
                     MeanUser.events.publish('resetpassword', {
                         description: user.name + ' reset his password.'
                     });

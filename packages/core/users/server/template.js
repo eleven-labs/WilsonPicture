@@ -12,5 +12,15 @@ module.exports = {
     ].join('\n\n');
     mailOptions.subject = 'Resetting the password';
     return mailOptions;
-  }
+  },
+    confirmation_email: function(user, req, token, mailOptions) {
+        mailOptions.html = [
+            'Welcome ' + user.name + ' !',
+            'Click on the following link to activate your account:',
+            'http://' + req.headers.host + '/confirmation/' + token,
+            'You\'ll be able to logIn with your username and password.',
+        ].join('\n\n');
+        mailOptions.subject = 'Confirmation email';
+        return mailOptions;
+    }
 };

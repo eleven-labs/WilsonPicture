@@ -74,6 +74,15 @@ var UserSchema = new Schema({
     type: String,
     default: 'local'
   },
+    enabled: {
+        type: Boolean,
+        default: false,
+        required: true
+    },
+    confirmationToken: {
+        type: String,
+        required: true
+    },
   salt: String,
   resetPasswordToken: String,
   resetPasswordExpires: Date,
@@ -176,7 +185,16 @@ UserSchema.methods = {
     delete obj.hashed_password;
     delete obj.salt;
     return obj;
-  }
+  },
+
+    /**
+     * Say if a user is enabled
+     *
+     * @returns {Boolean}
+     */
+    isEnabled: function () {
+        return this.enabled;
+    }
 };
 
 mongoose.model('User', UserSchema);
